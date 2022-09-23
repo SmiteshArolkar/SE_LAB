@@ -65,7 +65,7 @@ void display_list(struct node* p)
     printf("\n");
 }
 
-struct node* delete_at(struct node* start,int position)
+struct node* ddatate_at(struct node* start,int position)
 {
     struct node* p = start;
     if(position == 0 || position == 1)
@@ -91,21 +91,39 @@ struct node* delete_at(struct node* start,int position)
     return start;
 }
 
-struct node* set_Union(struct node* set1,struct node* set2, struct node* set3)
+struct node * add_to_set(struct node* start,int data)
 {
-    //sets of same lenght
-    struct node* p1 = set1;
-    struct node* p2 = set2;
-    struct node* p3 = set1;
-    while (p3->next)
+    struct node* temp=malloc(sizeof(struct node)),*p;
+    temp->data=data;
+    temp->next=NULL;
+    if(start==NULL)
     {
-        p3 = p3->next;
+        start=temp;
+        return start;
     }
-    
+    for(p=start;p->data!=data&&p->next!=NULL;p=p->next);
+    if(p->data==data)
+    return start;
+    p->next=temp;
+    return start;
+}
 
-    for(struct node* p = set2; p!= NULL ; p=p->next)
-    {
-        
-    }
-    
+void set_union(struct node *s1,struct  node *s2)
+{
+    struct node *u=NULL;
+    for(;s1!=NULL;s1=s1->next)
+    u=add_to_set(u,s1->data);
+    for(;s2!=NULL;s2=s2->next)
+    u=add_to_set(u,s2->data);
+    display_list(u);
+}
+
+void set_intersection(struct node*s1,struct node*s2) 
+{
+    struct node*i=NULL,*j;
+    for(;s1!=NULL;s1=s1->next){
+    for(j=s2;j!=NULL&&j->data!=s1->data;j=j->next);
+    if(j!=NULL)
+    i=add_to_set(i,s1->data);}
+    display_list(i);
 }

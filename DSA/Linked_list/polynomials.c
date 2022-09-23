@@ -4,65 +4,61 @@
 
 struct node{
   int coeff;
-  int expo;
+  int power;
   struct node * next;
 };
 
-struct node * addafter(struct node *,struct node *);
-struct node * addatbeg(struct node *,struct node *);
-struct node * addatend(struct node *,struct node *);
-struct node * create(struct node *);
-struct node * add(struct node *,struct node *);
-struct node * multiply(struct node *, struct node *);
-struct node * polEdit(struct node * );
+struct node * add_after_LL(struct node *,struct node *);
+struct node * add_begin_LL(struct node *,struct node *);
+struct node * add_end_LL(struct node *,struct node *);
+struct node * createLL(struct node *);
+struct node * add_to_LL(struct node *,struct node *);
+struct node *  multiply_poly(struct node *, struct node *);
+struct node * edit_poly_LL(struct node * );
 void displayLL(struct node *);
 struct node * deleteTerm(struct node *, int);
 int main(){
   struct node * polynomial1 = NULL, * polynomial2 = NULL, * p3 = NULL, *p4 = NULL;  
-  int c,status = 0,e;
+  int c,flag = 0,e;
   do{
-    printf("1: to accept 2 polynomials\n ");
-    printf("2: to add the 2 polynomials\n ");
-    printf("3: to multiply the 2 polynomials\n ");
-    printf("4: to modify either of two polynomials\n ");
-    printf("5: to display both polynomials\n ");
-    printf("0: to exit the polynomial\n ");
+    printf("1: accept 2 polynomials\n2: add the 2 polynomials\n3:  multiply_poly the 2 polynomials\n4: modify either of two polynomials\n5: display both polynomials\n");
+    printf("0: exit the polynomial\n ");
     scanf("%d",&c);
     switch(c){ 
       case 1: 
         printf("Enter polynomial p1 :\n");
-        polynomial1 = create(polynomial1);
+        polynomial1 = createLL(polynomial1);
         printf("Enter polynomial p2 :\n");
-        polynomial2 = create(polynomial2);
-        status = 1;
+        polynomial2 = createLL(polynomial2);
+        flag = 1;
         break;
       case 2: 
-        if (status == 0){
+        if (flag == 0){
           printf("Polynomials have to be accepted\n");
-          polynomial1 = create(polynomial1);
-          polynomial2 = create(polynomial2);
-          status = 1;
+          polynomial1 = createLL(polynomial1);
+          polynomial2 = createLL(polynomial2);
+          flag = 1;
         }
-        p3 = add(polynomial1, polynomial2);
+        p3 = add_to_LL(polynomial1, polynomial2);
         displayLL(p3);
         break;
       case 3: 
-        if (status == 0){
+        if (flag == 0){
           printf("Polynomials have to be accepted\n");
-          polynomial1 = create(polynomial1);
-          polynomial2 = create(polynomial2);
-          status = 1;
+          polynomial1 = createLL(polynomial1);
+          polynomial2 = createLL(polynomial2);
+          flag = 1;
         }
-        p4 = multiply(polynomial1,polynomial2);
+        p4 =  multiply_poly(polynomial1,polynomial2);
         displayLL(p4);
         break;
       case 4: 
         printf("Which polynomial to you wish to modify(1-p1,2-p2):");
         scanf("%d", &e);
         if (e==1){
-          polynomial1 = polEdit(polynomial1);
+          polynomial1 = edit_poly_LL(polynomial1);
         }else if(e==2){
-          polynomial2 = polEdit(polynomial2);
+          polynomial2 = edit_poly_LL(polynomial2);
         }
         break;
       case 5:
@@ -77,8 +73,7 @@ int main(){
   
   return 0;
 }
-struct node * create(struct node * start){
-  //start == NULL
+struct node * createLL(struct node * start){
   start = NULL;
   struct node * temp;
   int n,a,b;
@@ -86,23 +81,23 @@ struct node * create(struct node * start){
   scanf("%d",&n);
   while (n--){
     temp = (struct node *)malloc(sizeof(struct node));
-    printf("Enter coefficient and exponent (c,e):");
-    scanf("%d,%d", &(temp->coeff),&(temp->expo));
+    printf("Enter coefficient and powernent (c,e):");
+    scanf("%d,%d", &(temp->coeff),&(temp->power));
     temp->next = NULL;
     if (start == NULL){
-      start = addatbeg(start,temp);
+      start = add_begin_LL(start,temp);
     }else{
-      start = addafter(start, temp);
+      start = add_after_LL(start, temp);
     }
   }
   return start;
 }
-struct node * addatbeg(struct node * start, struct node * p){
+struct node * add_begin_LL(struct node * start, struct node * p){
   p->next = start;
   start = p;
   return start;
 }
-struct node * addatend(struct node * start, struct node * p){
+struct node * add_end_LL(struct node * start, struct node * p){
     struct node * temp = start;
     if (temp==NULL){
       start = p;
@@ -113,34 +108,30 @@ struct node * addatend(struct node * start, struct node * p){
     temp->next = p;
     return start;
 }
-struct node * addafter(struct node * start, struct node * p){
-  //check if p's coefficient < the next node's coefficient
-  //check first node is null or not
-  if ((start==NULL) || (p->expo > start->expo)){
-    start = addatbeg(start,p);
+struct node * add_after_LL(struct node * start, struct node * p){
+  if ((start==NULL) || (p->power > start->power)){
+    start = add_begin_LL(start,p);
     return start;
   }
   struct node * temp = start;
-  while ((temp->next != NULL) && (p->expo < temp->next->expo)){
+  while ((temp->next != NULL) && (p->power < temp->next->power)){
     temp = temp->next;
   }
-  //check if temp->next = null, if it is, add at end
   if (temp->next == NULL){
-    //check whether one node only
-    if (p->expo > temp->expo){
+    if (p->power > temp->power){
       p->next = temp;
       start = p;
     }
-    else if (p->expo == temp->expo){
+    else if (p->power == temp->power){
       temp->coeff += p->coeff;
-    }else if (p->expo < temp->expo){
-      temp->next = p; //if the p exp is lower than any yet encountered
+    }else if (p->power < temp->power){
+      temp->next = p; 
     }
     return start;
   }else {
-    if (p->expo == temp->next->expo)
+    if (p->power == temp->next->power)
       temp->next->coeff += p->coeff;
-    else if (p->expo > temp->next->expo) {
+    else if (p->power > temp->next->power) {
       p->next = temp->next;
       temp->next = p;
     }
@@ -152,98 +143,89 @@ void displayLL(struct node * a){
         printf("Empty list\n");
         return;
     }
-    //int i = 0;
     printf("| ");
     while (a!= NULL){
-        printf("%dX^%d + ",a->coeff, a->expo);
+        printf("%dX^%d + ",a->coeff, a->power);
         a = a->next;
-        //i++;
+  
     }
     printf(" + 0 = 0 |\n");
 }
 
-struct node * add(struct node *a,struct node *b){
-  //add two polynomials
+struct node * add_to_LL(struct node *a,struct node *b){
   struct node * sum = NULL;
-  while (a!=NULL && b!= NULL)//as long as neither one  null
+  while (a!=NULL && b!= NULL)
   {
     struct node * temp = (struct node *)malloc(sizeof(struct node));
-    if (a->expo == b->expo){
-      temp->expo = b->expo;
+    if (a->power == b->power){
+      temp->power = b->power;
       temp->coeff = a->coeff + b->coeff;
-      temp->next = NULL; //not needed
-      sum = addatend(sum,temp);
+      temp->next = NULL;
+      sum = add_end_LL(sum,temp);
       a = a->next;
       b = b->next;
-    }else if (a->expo > b->expo){
-      temp->expo = a->expo;
+    }else if (a->power > b->power){
+      temp->power = a->power;
       temp->coeff = b->coeff;
       temp->next = NULL;
-      sum = addatend(sum,temp);
+      sum = add_end_LL(sum,temp);
       a = a->next;
-    }else if (b->expo > a->expo){
-      temp->expo = b->expo;
+    }else if (b->power > a->power){
+      temp->power = b->power;
       temp->coeff = b->coeff;
       temp->next = NULL;
-      sum = addatend(sum,temp);
+      sum = add_end_LL(sum,temp);
       b = b->next;
     }
   }
   struct node * p;
-  //handle the other one
   p = (a==NULL)?b:a;
   while (p!=NULL){
     struct node * temp = (struct node *)malloc(sizeof(struct node));
     temp->coeff = p->coeff;
-    temp->expo = p->expo;
+    temp->power = p->power;
     temp->next = NULL;
-    sum = addatbeg(sum, temp);
+    sum = add_begin_LL(sum, temp);
     p = p->next;
   }
   return sum;
 }
-struct node * multiply(struct node * p1, struct node *p2){
-  //multiplication valid as long as both are non null
+struct node *  multiply_poly(struct node * p1, struct node *p2){
   struct node * product = NULL;
   struct node * a, *b;
   a = p1;
   b = p2;
   if (a==NULL || b==NULL)
     return product;
-  /*
-  carry out outer traversal on one polynomial
-  inner traversal occurs as long as outer is not null
-  use just one product node
-  */
  while (a!=NULL){
   b = p2;
   while (b!=NULL){
     struct node * temp = (struct node *)malloc(sizeof(struct node));
     temp->coeff = a->coeff * b->coeff;
-    temp->expo = a->expo + b->expo;
+    temp->power = a->power + b->power;
     temp->next = NULL;
-    product = addafter(product, temp);
+    product = add_after_LL(product, temp);
     b = b->next;
   }
   a = a->next;
  }
  return product;
 }
-struct node * polEdit(struct node * a){
-  //either insert a term or delete a term
+struct node * edit_poly_LL(struct node * a){
+
   int c;
   printf("Enter \n\t1 to insert a term\n\t2 to delete a term\n:");
   scanf("%d", &c);
   struct node * temp = (struct node *)malloc(sizeof(struct node));
   if (c==1)
   {
-    printf("Enter coefficient and exponent:");
-    scanf("%d,%d",&(temp->coeff),&(temp->expo));
+    printf("Enter coefficient and powernent:");
+    scanf("%d,%d",&(temp->coeff),&(temp->power));
     temp->next = NULL;
-    a = addafter(a,temp);
+    a = add_after_LL(a,temp);
   }
   else if (c==2){
-    printf("Enter exponent of term to be deleted:");
+    printf("Enter powernent of term to be deleted:");
     scanf("%d",&c);
     a = deleteTerm(a, c);
   }
@@ -256,14 +238,14 @@ struct node * deleteTerm(struct node * start, int exp){
   struct node * p = start;
   if (start == NULL)
     return start;
-  else if (start->expo == exp){
+  else if (start->power == exp){
     p = start;
     start = start->next;
     free(p);
     return start;
   }
   while (p->next!=NULL){
-    if (p->next->expo == exp){
+    if (p->next->power == exp){
       struct node * temp = (struct node *)malloc(sizeof(struct node));      
       temp = p->next;
       p->next = temp->next;
