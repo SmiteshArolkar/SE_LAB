@@ -149,3 +149,6 @@ int main()
 	printf("%s\n", prefix);
 	return 0;
 }
+
+//  OP: enter the inflix expression :(3+3)*4/2
+//     the expression is :/*+3342
