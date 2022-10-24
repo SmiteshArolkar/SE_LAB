@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include "malloc.h"
 
 
 struct NODE
@@ -10,6 +11,58 @@ struct NODE
 
 typedef struct NODE node;
 
+node* create_list(node* start)
+{
+    int n;
+    printf("Enter Number of elements\n");
+    scanf("%d",&n);
+    node* p = start;
+    for(int i = 0 ; i < n ; i++)
+    {
+        node* temp = (node*)malloc(sizeof(node));
+        temp->next = NULL;
+        printf("Enter data\n");
+        scanf("%d",&temp->data);
+        if(start == NULL)
+        {
+            start = temp;
+            p = temp;
+        }
+        else{
+            p->next = temp;
+            p=p->next;
+        }
+
+    }
+    return start;
+}
+
+void display_list(node* start)
+{
+    node* p = start;
+    while(p){
+        printf("%d\t",p->data);
+        p  = p->next;
+       }
+    printf("\n");
+}
+
+node* search(node* start,int data)
+{
+    if(start == NULL)
+    {
+        printf("Element Not Found\n");
+        return NULL;
+    }
+    if(start->data == data)
+    {
+        printf("Element found\n");
+        return NULL;
+    }
+    else{
+        search(start->next,data);
+    }
+}
 
 
 int base_convert(int n, int base);
@@ -19,13 +72,66 @@ void reverse_a_string(char*);
 
 int main()
 {
-    base_convert(12, 2);
-    printf("\n");
-    towerOfHanoi(3, 'A', 'B', 'C');
+   int c;
+   do
+   {
+    printf("\n1)Base Conversion\n2)Tower of Hanoi\n3)gcd\n4)Reverse String\n5)Search Linked List\n0)exit");
+    scanf("%d",&c);
+    switch (c)
+    {
+    case 1:printf("Enter Number and base(2-9)\n");
+           {
+            int a,b;
+            scanf("%d %d",&a,&b);
+            base_convert(a,b);
+           }
+        /* code */
+        break;
+    case 2:
+           printf("Enter number of Discs\n");
+           {
+            int n;
+            scanf("%d",&n);
+            towerOfHanoi(n,'A','B','C');
+            printf("\n");
+           }
+        /* code */
+        break;
+    case 3:printf("Enter 2 numbers\n");
+    {
+        int a,b;
+        scanf("%d %d",&a,&b);
+        printf("%d\n",gcd(a,b));
+        
+    }
+        
+        /* code */
+        break;
+    case 4:printf("Enter a String\n");
+    {
+        char a[100];
+        scanf("%s",a);
+        reverse_a_string(a);
+        printf("\n");
+    }
+        /* code */
+        break;
+    case 5:
+    {
+        node* start = NULL;
+        start = create_list(start);
+        printf("Enter data to be searched\n");
+        int data;
+        scanf("%d",&data);
+        search(start,data);
+    }
+        /* code */
+        break;
+    default:
+        break;
+    }
 
-    printf("%d\n", gcd(98, 56));
-    char a[] = "abcdef";
-    reverse_a_string(a);
+   }while(c);
 }
 
 int base_convert(int n, int base)
