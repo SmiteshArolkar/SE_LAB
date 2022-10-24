@@ -14,7 +14,7 @@ struct nodes{
 node* push(node* rear,int data);
 node* pop(node* front);
 void display(node* front);
-node* createQue(node* front,node* rear);
+struct nodes* createQue(node* front,node* rear);
 
 struct nodes* createQue(node* front,node* rear)
 {
@@ -33,7 +33,7 @@ struct nodes* createQue(node* front,node* rear)
             front = rear;
         }
     }
-    struct nodes *a;
+    struct nodes *a = (struct nodes*)malloc(sizeof(struct nodes));
     a->front = front;
     a->rear = rear;
     return a;
@@ -73,7 +73,7 @@ void display(node* front)
     node* p = front;
     while(p)
     {
-        printf("%d",p->data);
+        printf("%d\t",p->data);
         p = p->next;
     }
     printf("\n");
