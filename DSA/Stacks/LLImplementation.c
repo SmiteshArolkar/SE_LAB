@@ -1,5 +1,6 @@
 #include "stdio.h"
 #include "malloc.h"
+#include "string.h"
 
 struct NODE
 {
@@ -14,6 +15,7 @@ node* createStack(node* top);
 node* push(node* top,char data);
 node* pop(node* top);
 void display(node* top);
+char* postfix_to_infix(node* top,char postfix[],char infix[]);
 
 node*createStack(node* top)
 {
@@ -61,6 +63,66 @@ void display(node* top)
         temp = temp->next;
     }
     printf("\n");
+}
+node* pop_data(node* top,char *data)
+{
+    if(top == NULL)
+    {
+        printf("Empty stack\n");
+        return NULL;
+    }
+    node* temp = top;
+    top = top->next;
+    *data = temp->data; 
+    free(temp);
+    return top;
+}
+
+char* postfix_to_infix(node* top,char postfix[],char infix[])
+{
+    int i = 0;
+    char result[4]; 
+    char infix[100];
+    for(int j = 0 ; j < strlen(postfix) ; j++)
+    {
+        char symbol = postfix[j];
+        switch (symbol)
+        {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '%':
+        case '^': 
+        char data;
+        top = pop_data(top,&data);
+        result[0] = '(';
+        result[3] = data;
+        result[2] = symbol;
+        top = pop_data(top,&data);
+        result[1] = data;
+        result[4] = ')';
+        for(int m = 0 ; m < 5 ; m++)
+        {
+            top = push(top,result[m]);
+        }
+                  
+        break;
+        
+        default: //push on stack
+            top = push(top,postfix[j]);
+            break;
+        }
+
+    }
+    while(top!=NULL)
+    {
+        char data;
+        top = pop_data(top,&data);
+        infix[i] = data;
+        i++;
+    }
+    return infix;
 }
 
 int main()
