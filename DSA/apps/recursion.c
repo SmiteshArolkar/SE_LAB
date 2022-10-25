@@ -136,7 +136,6 @@ int main()
 
 int base_convert(int n, int base)
 {
-
     if (n == 0)
     {
         printf("0");
@@ -152,6 +151,20 @@ int base_convert(int n, int base)
     {
         base_convert(n / base, base);
     }
+    if(base == 16)
+    {
+        switch (n%base)
+        {
+            case 10:printf("A");break;
+            case 11:printf("B");break;
+            case 12:printf("C");break;
+            case 13:printf("D");break;
+            case 14:printf("E");break;
+            case 15:printf("F");break;
+            default:printf("%d",n%base);
+        }
+    }
+    else
     printf("%d", n % base);
 }
 
