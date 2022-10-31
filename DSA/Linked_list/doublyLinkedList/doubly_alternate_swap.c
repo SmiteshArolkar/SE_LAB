@@ -116,29 +116,42 @@ node *sum(node *temp1, node *temp2, node *startadd)
         startadd = add_end(startadd, carry);
     return startadd;
 }
+node* swap(node* start)
+{
+    node* ptr = start , *q = ptr->next;
+    node* ret = start;
+    while(ptr!=NULL || q!=NULL)
+    {
+        node* t = ptr->prev;
+        ptr->next = q->next;
+        q->next->prev = ptr;
+        q->next = ptr;
+        q->prev = t;
+        ptr->prev = q;
+        //interchange
+        t = ptr;
+        ptr = q;
+        q = t;
+        if(ptr->prev == NULL)
+        {
+            ret = ptr;
+        }
+        ptr = ptr->next;
+        q = q->next;
+    }
+    return ret;
+}
 int main()
 {
     node *start1, *start2, *startadd;
     start1 = start2 = startadd = NULL;
     int n1, n2;
-    pritf("Enter Number of Elements in list\n");
-    int n;
-    scanf("%d",&n);
-    for(int i = 0 ; i < n ; i++)
-    {
-        printf("Enter data\n");
-        int data;
-        scanf("%d",&data);
-        start1->next = createlist(start1,data);
-    }
+    printf("enter the first number : ");
+    scanf("%d", &n1);
+    printf("enter the second number : ");
+    scanf("%d", &n2);
+    start1 = createlist(start1, n1);
+    start1 = swap(start1);
 
+    return 0;
 }
-/*
-OP : 
-/tmp/X3O3lvQdUP.o
-enter the first number : 4
-enter the second number : 5
-the first list is : 4
-the second list is : 5
-the sum is : 9
-*/

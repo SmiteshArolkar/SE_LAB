@@ -138,10 +138,10 @@ int main()
 }
 /*
 OP : 
-/tmp/X3O3lvQdUP.o
-enter the first number : 4
-enter the second number : 5
-the first list is : 4
-the second list is : 5
-the sum is : 9
+/tmp/6bTnnBFujy.o
+enter the first number : 517
+enter the second number : 1101
+the first list is : 517
+the second list is : 1101
+the sum is : 1618
 */

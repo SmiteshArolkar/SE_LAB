@@ -64,7 +64,7 @@ node *altdel(node *last, int n)
             free(q);
             tmp = tmp->next;
         } while (tmp->next != last);
-        if (n & 1)
+        if (n%2 == 1)
             return last;
         else
         {
