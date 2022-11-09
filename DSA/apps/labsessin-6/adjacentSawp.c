@@ -200,9 +200,9 @@ int main()
     while (1)
     {
         printf("\n1.Create");
-        printf("\n2.Search");
+        printf("\n2.Display");
         printf("\n3.Count");
-        printf("\n4.Display");
+        printf("\n4.Search");
         printf("\n5.Swap the adjacent elements");
         printf("\n6.delete");
         scanf("%d", &choice);

@@ -6,7 +6,7 @@ struct node
     int data;
     struct node *next;
 };
-void Display(struct node *tail);
+int Display(struct node *tail);
 struct node *create(struct node *tail, int data);
 void split(struct node *last, int n)
 {

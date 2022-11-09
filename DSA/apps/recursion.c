@@ -79,7 +79,7 @@ int main()
     scanf("%d",&c);
     switch (c)
     {
-    case 1:printf("Enter Number and base(2-9)\n");
+    case 1:printf("Enter Number and base(2-16)\n");
            {
             int a,b;
             scanf("%d %d",&a,&b);
