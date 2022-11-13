@@ -19,7 +19,7 @@ class num{
 
 int main()
 {
-    num a(0);
+    num a(10);
     cin>>a;
     cout<<a;
 }
