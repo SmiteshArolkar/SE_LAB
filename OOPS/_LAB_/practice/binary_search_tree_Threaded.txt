@@ -93,3 +93,38 @@ node* insert_threaded_bst(root,key)
     }
     return root;
 }
+
+void inOrder_travesal(root)
+{
+    node* travesal = root;
+    if(!travesal) return;
+    while(travesal->lthread == false) travesal = travesal->left;
+    while(travesal)
+    {
+        print(travesal->info);
+        travesal = inorder_successor(travesal);
+    }
+}
+
+void PreOrder_traversal(root)
+{
+    node* travesal = root;
+    if(!travesal) return;
+    while(travesal)
+    {
+        print(travesal->data);
+        if(travesal->lthread == false)
+        {
+            travesal = travesal->left;
+        }
+        else if(travesal->rthread == false)
+        {
+            travesal = travesal->right;
+        }
+        else
+        {
+            while(travesal && travesal->rthread == true) travesal = travesal->right;
+            if(travesal) travesal = travesal->right;
+        }
+    }
+}
