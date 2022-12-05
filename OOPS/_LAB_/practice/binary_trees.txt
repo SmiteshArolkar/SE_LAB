@@ -1,0 +1,189 @@
+node* nrecursive_preorder(root)
+{
+    node* stack = createStack();
+
+    while(1)
+    {
+        while(root)
+        {
+            print(root->data);
+            push(root);
+            root = root->left;
+        }
+
+        isEmpty(stack)
+        break;
+
+        root = pop(stack);
+        root = root->right;
+
+
+    }
+
+    deleteStack(stack);
+}
+
+node* nrecursive_inorder(root)
+{
+    node* stack = createStack();
+
+    while(1)
+    {
+        while(root)
+        {
+            push(root);
+            root = root->left;
+        }
+
+        if(isEmpty(stack))
+        break;
+
+        root = pop(stack);
+        print(root->data);
+        root = root->right;
+    }
+
+    deleteStack(stack);
+}
+
+node* nrecursive_postOrder(root)
+{
+    node* stack = createStack();
+    node* previous = NULL;
+    do
+    {
+        while(root)
+        {
+            stack = push(root);
+            root = root->left;
+        }
+        
+        while(root == NULL && !isEmpty(stack))
+        {
+            root = peak(stack);
+            if(root->right == NULL || root->right == previous)
+            {
+                print(root->data);
+                pop(stack);
+                previous = root;
+                root = NULL;
+            }
+            else
+            root=root->right
+        }
+
+    }while(isEmpty(stack));
+
+    deleteStack(stack);
+}
+
+
+void levelOrder(root)
+{
+    node* queue = createQueue();
+    if(!root)
+    return;
+    enQueue(root);
+    while(!isEmpty(queue))
+    {
+        temp = pop(queue);
+        print(temp->data);
+        if(temp->left)
+        enQueue(temp->left);
+        if(temp->right)
+        enQueue(temp->right);
+      
+    }
+
+    deleteQueue();
+
+}
+
+
+node* construct_bin_tree_pre(Preorder_list,Inorder_list,num)
+{
+    if(num == 0)
+    return;
+
+    node* temp = malloc();
+    temp->info = Preorder_list->info
+    temp->left = temp->right = NULL;
+
+    if(num == 1)
+    return temp;
+    
+    //Left Creation 
+    list* q = Inorder_list;
+    int i;
+
+    for(i = 0 ; q->info != Preorder_list->info ; q = q->next , i++){}
+
+    temp->left = construct_bin_tree_pre(Preorder_list->next,Inorder_list,i);
+
+    //right Creation
+    int j;
+
+    for(j = 1 ; j <= i+1;j++)
+    Preorder_list = Preorder_list->next;
+
+    temp->right = construct_bin_tree_pre(Preorder_list,q->next,num-i-1);
+    return temp;
+
+}
+
+node* construct_bin_tree_post(PostOrder_list,Inorder_list,num)
+{
+    if(num == 0)
+    return;
+
+    node* post  = PostOrder_list;
+    for(int i = 1 ; i < num; post = post->next)
+    node* temp = malloc();
+    temp->info = post->info;
+    temp->left = temp->right = NULL;
+
+    if(num == 1)
+    return temp;
+
+    //left Creation
+    node* q = Inorder_list;
+    int i;
+    for(i = 0 ; q->info != post->info ; i++ , q = q->next){}
+
+    temp->left = construct_bin_tree_post(PostOrder_list,Inorder_list,i);
+
+    //Right Creation
+    int j = 1;
+    for(j = 1; j <= i ; j++ , PostOrder_list = PostOrder_list->next){}
+
+    temp->right = construct_bin_tree_post(PostOrder_list,q->next,num-i-1);
+
+    return temp;
+}
+
+int height(root)
+{
+    if(!root)
+    return 0;
+
+    l_height = height(root->left);
+    r_height = height(root->right);
+
+    if(l_height > r_height)
+    {
+        return 1+l_height;
+    }
+    else 
+    return 1+r_height;
+}
+
+void levelOrder_givenLevel(root,level)
+{
+    if(!root) return;
+    if(level == 1) print(root->data)
+    else if(level > 1) 
+    {
+        levelOrder_givenLevel(root->left,level-1);
+        levelOrder_givenLevel(root->right,level-1);
+    }
+}

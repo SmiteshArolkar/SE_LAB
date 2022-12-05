@@ -1,0 +1,130 @@
+node* inorder_successor(root)
+{
+    if(root->rthread)
+    {
+        return root->right;
+    }
+    else
+    {
+        root = root->right;
+        while(!root->lthread)
+        root = root->left;
+        return root;
+    }
+}
+
+node* inorder_predecessor(root)
+{
+    if(root->lthread)
+    {
+        return root->left;
+    }
+    else
+    {
+        root = root->left;
+        while(!root->rthread)
+        {
+            root = root->right;
+            return root;
+        }
+    }
+}
+
+node* insert_threaded_bst(root,key)
+{
+    node* parent = NULL, *travesal = root;
+    int found = 0;
+    while(travesal)
+    {
+        if(key == travesal->info)
+        {
+            found = 1;
+            break;
+        }
+        parent = travesal;
+        if(key < travesal->info)
+        {
+            if(travesal->lthread == false)
+            {
+                travesal = travesal->left;
+            }
+            else
+            {
+                break;
+            }
+        }
+        else
+        {
+            if(travesal->rthread == false)
+            {
+                travesal = travesal->right;
+            }
+            else 
+            {
+                break;
+            }
+        }
+        if(found) //duplicate return root;
+        else 
+        {
+            node* temp = malloc()
+            temp->info = key
+            temp->left = temp->right = NULL;
+            temp->lthread = temp->rthread = true;
+            if(parent == NULL)
+            {
+                root = temp;
+            }
+            else if(key < parent->info)
+            {
+                temp->left = parent->left;
+                temp->right = parent;
+                parent->lthread = false;
+                parent->left = temp;
+            }
+            else
+            {
+                temp->left = parent;
+                temp->right = parent->right;
+                parent->rthread = false
+                parent->right = temp;
+            }
+        }
+    }
+    return root;
+}
+
+void inOrder_travesal(root)
+{
+    node* travesal = root;
+    if(!travesal) return;
+    while(travesal->lthread == false) travesal = travesal->left;
+    while(travesal)
+    {
+        print(travesal->info);
+        travesal = inorder_successor(travesal);
+    }
+}
+
+void PreOrder_traversal(root)
+{
+    node* travesal = root;
+    if(!travesal) return;
+    while(travesal)
+    {
+        print(travesal->data);
+        if(travesal->lthread == false)
+        {
+            travesal = travesal->left;
+        }
+        else if(travesal->rthread == false)
+        {
+            travesal = travesal->right;
+        }
+        else
+        {
+            while(travesal && travesal->rthread == true) travesal = travesal->right;
+            if(travesal) travesal = travesal->right;
+        }
+    }
+}

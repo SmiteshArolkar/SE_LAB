@@ -1,48 +1,116 @@
 #include "stdio.h"
 #include "malloc.h"
 
-struct edge;
-struct vertex{
 
-    int value;
+struct vertex;
+
+struct Edge
+{
+    struct Edge* next;
+    struct vertex* vertex;
+};
+struct vertex
+{
+    int data;
+    struct Edge* edge;
     struct vertex* next;
-    struct edge* m_edge;
 };
 
-struct edge{
-    struct vertex* vert;
-    struct edge* next;
-};
-
-typedef struct edge edge;
+typedef struct Edge edge;
 typedef struct vertex vertex;
 
-vertex* createGraph(int n);
-vertex* addNode(vertex* v,int data);
-vertex* addEdge(vertex* source,vertex* destinaton);
-void displayGraph(vertex* v);
-
-int main()
+vertex* insert(vertex* vert)
 {
+    int data;
+    printf("Enter Data of the Node To be inserted\n");
+    scanf("%d",&data);
 
-}
+    vertex* temp = (vertex*)malloc(sizeof(vertex));
+    temp->data = data;
+    temp->next = NULL;
+    temp->edge = NULL;
 
-vertex* createGraph(int n)
-{
-    vertex *v = (vertex*)malloc(sizeof(vertex));
-    vertex *temp = v;
-    for(int i = 0 ; i < n-1; i++)
+    //inserting edge list
+
+    int n;
+    printf("Enter number of Edges\n");
+    scanf("%d",&n);
+
+    //check max edge logic
+
+
+    for(int i = 0 ; i < n; i++)
     {
-         vertex *temp = (vertex*)malloc(sizeof(vertex));
-        if(v == NULL)
+        edge* p = (edge*)malloc(sizeof(edge));
+        p->next = NULL;
+        p->vertex = NULL;
+        printf("Enter data of destination vertex\n");
+        int dest_data;
+        scanf("%d",&dest_data);
+        vertex* t;
+        for(t = vert;t != NULL ; t = t->next)
         {
-            temp->value = i+1;
-            temp->next = NULL;
+            if(dest_data == t->data)
+            {
+                printf("DATA found\n");
+                break;
+            }
+        }
+        
+        p->vertex = t;
+        edge* a = temp->edge;
+        if(a == NULL)
+        {
+            a = p;
         }
         else
         {
-
+            while(a->next)
+            {
+                a = a->next;
+            }
+            a->next = p;
         }
+
+
     }
+
+    if(vert != NULL)
+    {
+        vertex* j = vert;
+        while(j->next)
+        {
+            j = j->next;
+        }
+        j->next = temp;
+    }
+    else
+    {
+        vert = temp;
+    }
+    
+    return vert;
+
+}
+
+void display(vertex* vert)
+{
+    vertex* t = vert;
+    while(t)
+    {
+        printf("%d\n",t->data);
+        t = t->next;
+    }
+}
+
+
+int main()
+{
+    vertex* v = insert(v);
+
+    v = insert(v);
+    
+    
+    display(v);
 }
 

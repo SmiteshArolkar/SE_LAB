@@ -1,0 +1,170 @@
+node* search_bst(root,key)
+{
+    while(root)
+    {
+        if(root->data == key)
+        return root;
+        else if(key < root->info)
+        root = root->left;
+        else if(key > root->info)
+        root = root->right;
+    }
+
+    return NULL;
+}
+
+node* insert_bst(root,key)
+{
+    node* parent,*travesal;
+    parent = NULL;
+    travesal = root;
+    while(travesal)
+    {
+        parent = travesal;
+        if(key < travesal->info) travesal = travesal->left;
+        else if(key > travesal->info) travesal = travesal->right;
+        else {
+            //Duplicate 
+            return root;
+        }
+
+        node* temp = malloc();
+        temp->info = key;
+        temp->left = temp->right = NULL;
+
+        if(parent == NULL) return root;
+
+        else if(key < parent->info )
+        {
+            parent->left = temp;
+        }
+        else parent->right = temp;
+    }
+}
+
+node* del_nrec(root,key)
+{
+    node* parent = NULL , *travesal = root;
+    while(travesal)
+    {
+        if(travesal->info == key) break;
+
+        parent = travesal;
+        if(key < travesal->info) travesal = travesal->left;
+        else travesal = travesal->right;
+
+    }    
+
+    if(!travesal) //not present
+    else if(travesal->left && travesal->right) root = case_2_leaf_nodes(root,parent,travesal);
+    else if(travesal->left) root = case_1_leaf_node(root,parent,travesal);
+    else if(travesal->right) root = case_1_leaf_node(root,parent,travesal);
+    else root = case_0_leaf_nodes(root,parent,travesal);
+    return root;
+}
+
+case_0_leaf_nodes(root,parent,travesal)
+{
+    if(!travesal) root =  NULL;//return root?
+
+    else if(parent->left == travesal) parent->left = NULL;
+
+    else parent->right == NULL;
+
+    free(travesal);
+
+    return root;
+}
+
+case_1_leaf_node(root,parent,travesal)
+{
+    node* child = NULL;
+    if(travesal->left)
+    {
+        child = travesal->left;
+    }   
+    else child = travesal->right;
+    if(!par)
+    {
+        root = child; // return child?
+    }
+    else if(parent->left == travesal)
+    {
+        parent->left = child;
+    }
+    else parent->right = child;
+
+    free(travesal);
+
+    return root;
+}
+
+case_2_leaf_nodes(root,parent,travesal)
+{
+    node* successor = travesal->right , *parent_successor = travesal;
+
+    while(successor->left)
+    {
+        parent_successor = successor;
+        successor = successor->left;
+    }
+    travesal->info = successor->info;
+    if(!(successor->left && successor->right))
+    {
+        //case a
+        root = case_0_leaf_nodes(root,parent_successor,successor);
+    }
+    else root = case_1_leaf_node(root,parent_successor,successor);
+
+    return root;
+}
+
+
+node* del_nrec_without_cases(root,key)
+{
+    node* parent,*travesal,*successor,*parent_successor,*child = NULL;
+    travesal = root;
+    parent = NULL;
+
+    while(travesal)
+    {
+        if(key == travesal->info) break;
+
+        parent = travesal;
+        if(key < travesal->info) travesal = travesal->left;
+        else travesal = travesal->right;
+    }
+
+    if(!travesal) return root;
+
+    if(travesal->left && travesal->right)
+    {
+        parent_successor = travesal;
+        successor = travesal->right;
+
+        while(successor->left)
+        {
+            parent_successor = successor;
+            successor = successor->left;
+        }
+        travesal->info = successor->info;
+        travesal = successor;
+        parent = parent_successor;
+    }
+
+    if(travesal->left)
+    {
+        child = travesal->left;
+    }
+    else child = travesal->right;
+
+    if(!parent) root = child;
+    else if(parent->left == travesal)
+    parent->left = child;
+    else
+    parent->right = child;
+
+    free(travesal);
+
+    return root;
+}
