@@ -253,8 +253,6 @@ int main(){
             case 7:
                 printf("width is %d\n",width(root));
                 break;
-            default:
-                break;
         }
     }
    
