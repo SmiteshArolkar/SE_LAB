@@ -14,7 +14,7 @@ int main()
 {
     int a = 10 , b = 20;
     cout<<"A = "<<a<<" B = "<<b<<"\nAfter Swapping\n";
-    swap(a,b);
+    swap_number(a,b);
     cout<<"A = "<<a<<" B = "<<b<<"\n";
 
 }
