@@ -1,116 +1,108 @@
-#include "stdio.h"
-#include "malloc.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 
-struct vertex;
-
-struct Edge
-{
-    struct Edge* next;
-    struct vertex* vertex;
+struct AdjListNode {
+	int dest;
+	struct AdjListNode* next;
 };
-struct vertex
-{
-    int data;
-    struct Edge* edge;
-    struct vertex* next;
+struct AdjList {
+	struct AdjListNode* head;
 };
-
-typedef struct Edge edge;
-typedef struct vertex vertex;
-
-vertex* insert(vertex* vert)
+struct Graph {
+	int V;
+	struct AdjList* array;
+};
+struct AdjListNode* newAdjListNode(int dest)
 {
-    int data;
-    printf("Enter Data of the Node To be inserted\n");
-    scanf("%d",&data);
+	struct AdjListNode* newNode
+		= (struct AdjListNode*)malloc(
+			sizeof(struct AdjListNode));
+	newNode->dest = dest;
+	newNode->next = NULL;
+	return newNode;
+}
+struct Graph* createGraph(int V)
+{
+	struct Graph* graph
+		= (struct Graph*)malloc(sizeof(struct Graph));
+	graph->V = V;
+	graph->array = (struct AdjList*)malloc(
+		V * sizeof(struct AdjList));
+	int i;
+	for (i = 0; i < V; ++i)
+		graph->array[i].head = NULL;
 
-    vertex* temp = (vertex*)malloc(sizeof(vertex));
-    temp->data = data;
-    temp->next = NULL;
-    temp->edge = NULL;
-
-    //inserting edge list
-
-    int n;
-    printf("Enter number of Edges\n");
-    scanf("%d",&n);
-
-    //check max edge logic
-
-
-    for(int i = 0 ; i < n; i++)
-    {
-        edge* p = (edge*)malloc(sizeof(edge));
-        p->next = NULL;
-        p->vertex = NULL;
-        printf("Enter data of destination vertex\n");
-        int dest_data;
-        scanf("%d",&dest_data);
-        vertex* t;
-        for(t = vert;t != NULL ; t = t->next)
-        {
-            if(dest_data == t->data)
-            {
-                printf("DATA found\n");
-                break;
-            }
-        }
-        
-        p->vertex = t;
-        edge* a = temp->edge;
-        if(a == NULL)
-        {
-            a = p;
-        }
-        else
-        {
-            while(a->next)
-            {
-                a = a->next;
-            }
-            a->next = p;
-        }
-
-
-    }
-
-    if(vert != NULL)
-    {
-        vertex* j = vert;
-        while(j->next)
-        {
-            j = j->next;
-        }
-        j->next = temp;
-    }
-    else
-    {
-        vert = temp;
-    }
-    
-    return vert;
-
+	return graph;
 }
 
-void display(vertex* vert)
+void addEdge(struct Graph* graph, int src, int dest)
 {
-    vertex* t = vert;
-    while(t)
-    {
-        printf("%d\n",t->data);
-        t = t->next;
-    }
+	struct AdjListNode* check = NULL;
+	struct AdjListNode* newNode = newAdjListNode(dest);
+
+	if (graph->array[src].head == NULL) {
+		newNode->next = graph->array[src].head;
+		graph->array[src].head = newNode;
+	}
+	else {
+
+		check = graph->array[src].head;
+		while (check->next != NULL) {
+			check = check->next;
+        }
+		check->next = newNode;
+	}
+	newNode = newAdjListNode(src);
+	if (graph->array[dest].head == NULL) {
+		newNode->next = graph->array[dest].head;
+		graph->array[dest].head = newNode;
+	}
+	else {
+		check = graph->array[dest].head;
+		while (check->next != NULL) {
+			check = check->next;
+		}
+		check->next = newNode;
+	}
 }
 
-
+void printGraph(struct Graph* graph)
+{
+	int v;
+	for (v = 0; v < graph->V; ++v) {
+		struct AdjListNode* pCrawl = graph->array[v].head;
+		printf("\n Adjacency list of vertex \n%d ", v);
+		while (pCrawl) {
+			printf("-> %d", pCrawl->dest);
+			pCrawl = pCrawl->next;
+		}
+		printf("\n");
+	}
+}
 int main()
 {
-    vertex* v = insert(v);
+	int V = 5;
+	struct Graph* graph = createGraph(V);
+	addEdge(graph, 0, 1);
+	addEdge(graph, 0, 4);
+	addEdge(graph, 1, 2);
+	addEdge(graph, 1, 3);
+	addEdge(graph, 1, 4);
+	addEdge(graph, 2, 3);
+	addEdge(graph, 3, 4);
+    int c;
+    printf("\n1:Add Vertex \n2: Add 3 New Edges\n3: BFS \n 4:DFS \n0) Exit")
+    switch (c)
+    {
+    case 1:
+        break;
+    
+    default:
+        break;
+    }
 
-    v = insert(v);
-    
-    
-    display(v);
+	printGraph(graph);
+
+	return 0;
 }
-

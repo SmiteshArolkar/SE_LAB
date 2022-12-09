@@ -118,7 +118,7 @@ int main()
     while (a != 5)
     {
 
-        printf("\n1.ADD NEW VERTEX.\n2:ADD \n3:NEW EDGES\n3:BFS \n4:DFS.\n5:EXIT \n");
+        printf("\n1.ADD NEW VERTEX.\n2:ADD THREE NEW EDGES\n3:BFS \n4:DFS.\n5:EXIT \n");
         scanf("%d", &a);
         switch (a)
         {
