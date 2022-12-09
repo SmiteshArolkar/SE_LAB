@@ -113,7 +113,7 @@ int main()
         }
         printf("\n");
     }
-    printf("VERTEX 0 IS NOT INCLUDED\n");
+    printf(" [ VERTEX 0 IS NOT INCLUDED ] \n");
     int a = 0;
     while (a != 5)
     {
