@@ -3,15 +3,13 @@
 #include <conio.h>
 #include <vector>
 using namespace std;
-void display(vector<int> &); // display function prototype
-int main()
+void display(vector<int> &);
 {
-    vector<int> v; // integer vector created
+    vector<int> v;
 
-    cout << "\n\nInitial size() = " << v.size();         // gives no of elements
-    cout << "\n\nInitial capacity() = " << v.capacity(); // capacity returns no elements that vector can store b4 that vector needs to dynamically resize itself to accommodate more elements
-
-    v.push_back(10); // pushing the element at back of vector
+    cout << "\n\nInitial size() = " << v.size();         
+    cout << "\n\nInitial capacity() = " << v.capacity(); 
+    v.push_back(10); 
     v.push_back(20);
     v.push_back(30);
     v.push_back(40);
@@ -26,31 +24,27 @@ int main()
     cout << "\n\nFrist element of vector = " << v.front();
     cout << "\n\nLast element of vector = " << v.back();
 
-    // Inserting elements in vector using iterator
-    vector<int>::iterator itr = v.begin(); // here itr is pointing to 0th element of v
-    itr = itr + 5;                         // itr made to point 4th element;
-    v.insert(itr, 60);                     // insert 40 as 4th element of v
+    vector<int>::iterator itr = v.begin();
+    itr = itr + 5;                        
+    v.insert(itr, 60);                    
 
     cout << "\n\nDisplay vector elements after insertion :";
     display(v);
 
-    // pop_back() function to delete last element
+
     v.pop_back();
 
     cout << "\n\nDisplay vector elements after pop_back() :";
     display(v);
 
-    // erase(delete) vector elements
-    v.erase(v.begin() + 2, v.begin() + 4); // erase(2,4) = deletes 30 & 40 but not 50
+
+    v.erase(v.begin() + 2, v.begin() + 4); 
 
     cout << "\n\nDisplay vector elements after erase() :";
     display(v);
-
-    // resizing vector
     v.resize(10);
     cout << "\n\nAfter resize() vector size = " << v.size();
-
-    // using clear function
+    
     v.clear();
 
     cout << "\n\nAfter clear() function :";
@@ -65,6 +59,6 @@ void display(vector<int> &v)
 {
     for (int i = 0; i < v.size(); i++)
     {
-        cout << " " << v.at(i); // at() prints vector element at each reference index
+        cout << " " << v.at(i); 
     }
 }
