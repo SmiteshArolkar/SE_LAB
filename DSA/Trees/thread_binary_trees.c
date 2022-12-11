@@ -234,6 +234,11 @@ int main()
 {
     struct node *root = NULL, *p;
     int ch = 1, key;
+    int a[] = {1,2,3,4,5,6,7,8,9};
+    for(int i = 0 ; i < 9 ; i ++)
+    {
+        root = insert(root,a[i]);
+    }
     do
     {
         printf("1] Insert Node\n");

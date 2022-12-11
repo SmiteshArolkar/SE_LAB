@@ -4,6 +4,7 @@
 #include <vector>
 using namespace std;
 void display(vector<int> &);
+int main()
 {
     vector<int> v;
 
