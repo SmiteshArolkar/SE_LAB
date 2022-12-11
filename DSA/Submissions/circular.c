@@ -12,7 +12,7 @@ struct node *addatend(struct node *last, int data);
 struct node *addatbeg(struct node *last, int data);
 struct node *addafter(struct node *last, int data, int item);
 struct node *addbefore(struct node *last, int data, int item);
-struct node *del(struct node *last,int data);
+struct node *del(struct node *last, int data);
 int main()
 {
 
@@ -73,10 +73,11 @@ int main()
             scanf("%d", &item);
             last = addbefore(last, data, item);
             break;
-        case 8:printf("enter the number to be deleted :");
-        scanf("%d",&data);
-        last=del(last,data);
-        break;
+        case 8:
+            printf("enter the number to be deleted :");
+            scanf("%d", &data);
+            last = del(last, data);
+            break;
         case 9:
             exit(1);
         default:
@@ -206,48 +207,48 @@ struct node *addbefore(struct node *last, int data, int item)
     printf("Item %d not found in list\n", item);
     return last;
 }
-struct node *del(struct node *last,int data)
+struct node *del(struct node *last, int data)
 {
-	struct node *tmp,*p;
-	if(last ==NULL)
-	{
-		printf("list is empty ...\n");
-		return last;
-	}
-	if(last->link==last && last->info==data)
-	{
-		tmp=last;
-		last=NULL;
-		free(tmp);
-		return last;
-	}
-	if(last->link->info==data)
-	{
-		tmp=last->link;
-		last->link=tmp->link;
-		free(tmp);
-		return last;
-	}
-	p=last->link;
-	while(p->link!=last)
-	{
-		if(p->link->info==data)
-		{
-			tmp=p->link;
-			p->link=tmp->link;
-			free(tmp);
-			return last;	
-		}
-		p=p->link;
-	}
-	if(last->info==data)
-	{
-		tmp=last;
-		p->link=last->link;
-		last=p;
-		free(tmp);
-		return last;
-	}
-	printf("element %d not found ...\n",data);
-	return last;
+    struct node *tmp, *p;
+    if (last == NULL)
+    {
+        printf("list is empty ...\n");
+        return last;
+    }
+    if (last->link == last && last->info == data)
+    {
+        tmp = last;
+        last = NULL;
+        free(tmp);
+        return last;
+    }
+    if (last->link->info == data)
+    {
+        tmp = last->link;
+        last->link = tmp->link;
+        free(tmp);
+        return last;
+    }
+    p = last->link;
+    while (p->link != last)
+    {
+        if (p->link->info == data)
+        {
+            tmp = p->link;
+            p->link = tmp->link;
+            free(tmp);
+            return last;
+        }
+        p = p->link;
+    }
+    if (last->info == data)
+    {
+        tmp = last;
+        p->link = last->link;
+        last = p;
+        free(tmp);
+        return last;
+    }
+    printf("element %d not found ...\n", data);
+    return last;
 }

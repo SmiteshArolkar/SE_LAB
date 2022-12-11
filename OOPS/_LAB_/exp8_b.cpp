@@ -1,40 +1,69 @@
-#include <iostream>
+#include "iostream"
+
 using namespace std;
-void test(int x)
+
+template <class T>
+class Vector
 {
-    try
+private:
+    T *a;
+    int size;
+
+public:
+    Vector()
     {
-        if (x == 1)
-            throw x;
-        else if (x == -1)
-            throw 1.0;
-        else if (x == 0)
-            throw 'x';
-        else
-            cout << "No Exception\n";
+        a = new T;
+        size = 0;
     }
-    catch (char c)
+    Vector(int size)
     {
-        cout << "Caught a Character\n";
+        Vector::size = size;
+        a = new T[size];
     }
-    catch (int c)
+    void input()
     {
-        cout << "Caught a Interger\n";
+        for (int i = 0; i < size; i++)
+        {
+            cin >> a[i];
+        }
     }
-    catch (double c)
+
+    void resize(int newSize = 0)
     {
-        cout << "Caught a Double\n";
+        size = newSize;
     }
-}
+
+    void display()
+    {
+        for (int i = 0; i < size; i++)
+        {
+            cout << a[i] << "\t";
+        }
+    }
+
+    int UpdateValue(T element, T newValue)
+    {
+        int p = 0;
+        for(int i = 0 ; i < size ; i++)
+        {
+            if(a[i] == element)
+            {
+                a[i] = newValue;
+                p = 1;
+            }
+        }
+
+        return p;
+    }
+};
+
+
 int main()
 {
-    cout << "Testing Multiple Catches\n";
-    cout << "x=1\n";
-    test(1);
-    cout << "x=0\n";
-    test(0);
-    cout << "x=-1\n";
-    test(-1);
-    cout << "x=2\n";
-    test(2);
+    Vector<int> v(5);
+    v.input();
+    v.display();
+    v.UpdateValue(1,11);
+    cout<<"\n";
+    v.display();
 }

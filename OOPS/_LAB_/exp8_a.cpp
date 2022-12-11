@@ -1,35 +1,20 @@
-#include <iostream>
+#include "bits/stdc++.h"
 using namespace std;
-void divide(int a, int b)
+
+template<class T>
+void swap_number(T &a,T &b)
 {
-    try
-    {
-        if (a == 0)
-            throw a;
-        else
-        {
-            float r = b / a;
-            cout << "The Result is " << r << endl;
-        }
-    }
-    catch (int)
-    {
-        cout << "Error Divide by Zero in function\n";
-        throw;
-    }
+    T t;
+    t = a;
+    a = b;
+    b = t;
 }
+
 int main()
 {
-    int x, y;
-    cout << "Enter Two Values \n";
-    cin >> x >> y;
-    try
-    {
-        divide(x, y);
-        divide(x - x, y);
-    }
-    catch (int)
-    {
-        cout << "Error Caught inside Main\n";
-    }
+    int a = 10 , b = 20;
+    cout<<"A = "<<a<<" B = "<<b<<"\nAfter Swapping\n";
+    swap_number(a,b);
+    cout<<"A = "<<a<<" B = "<<b<<"\n";
+
 }

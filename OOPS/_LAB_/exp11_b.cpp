@@ -82,20 +82,6 @@ int main()
     cout << "\n\nAfter removing all 9's from list3 elements :";
     display(list3);
 
-    // using swap() function
-    list2.swap(list3);
-
-    cout << "\n\nAfter swapping list2 : ";
-    display(list2);
-
-    cout << "\n\nAfter swapping list3 : ";
-    display(list3);
-
-    // Using assign() function
-    list3.assign(list2.begin(), list2.end());
-
-    cout << "\n\nAfter assiging list2 elements to lsit3 :";
-    display(list3);
 
     getch();
     return 0;

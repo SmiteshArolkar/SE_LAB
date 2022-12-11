@@ -1,94 +1,40 @@
-#include "bits/stdc++.h"
-
+#include <iostream>
 using namespace std;
-class TeleDir
+void test(int x)
 {
-private:
-    string name;
-    int phone;
-
-public:
-    void getUserName()
+    try
     {
-        cout << "Enter User Name\n";
-        cin >> name;
-    }
-    void getPhoneNumber()
-    {
-        cout << "Enter New Phone Number\n";
-        cin >> phone;
-    }
-
-    int registerUser()
-    {
-        if (1)
-        {
-            ofstream f("teleDir_data//" + name + ".txt");
-            f << phone;
-            f.close();
-            return 1;
-        }
+        if (x == 1)
+            throw x;
+        else if (x == -1)
+            throw 1.0;
+        else if (x == 0)
+            throw 'x';
         else
-            return 0;
+            cout << "No Exception\n";
     }
-
-    int searchAndUpdate(string name_s)
+    catch (char c)
     {
-        ifstream f1("teleDir_data//" + name_s + ".txt", ios::in);
-        if (f1)
-        {
-            ofstream f("teleDir_data//" + name_s + ".txt");
-            cout << "Enter New Phone Number\n";
-            int n;
-            cin >> n;
-            f << n;
-            f.close();
-            f1.close();
-            return 1;
-        }
-        else
-            return 0;
+        cout << "Caught a Character\n";
     }
-    TeleDir()
+    catch (int c)
     {
+        cout << "Caught a Interger\n";
     }
-};
+    catch (double c)
+    {
+        cout << "Caught a Double\n";
+    }
+}
 int main()
 {
-    TeleDir t;
-    int c;
-    do
-    {
-        cout << "1: Register \n2:Search and Update\n0:EXIT\n";
-        cin >> c;
-        switch (c)
-        {
-        case 1:
-        {
-            t.getUserName();
-            t.getPhoneNumber();
-            if (t.registerUser())
-            {
-                cout << "Successfully Registered Phone Number\n";
-            }
-            else
-                cout << "Registration Phone Number Unsuccessful\n";
-        }
-        break;
-        case 2:
-        {
-            string s;
-            cout << "Enter User Name\n";
-            cin >> s;
-            if (t.searchAndUpdate(s))
-            {
-                cout << "Phone Number Edited Successfully\n";
-            }
-            else
-                cout << "Name does not Exists in dir\n";
-        }
-        default:
-            break;
-        }
-    } while (c);
+    cout << "Testing Multiple Catches\n";
+    cout << "x=1\n";
+    test(1);
+    cout << "x=0\n";
+    test(0);
+    cout << "x=-1\n";
+    test(-1);
+    cout << "x=2\n";
+    test(2);
 }
