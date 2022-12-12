@@ -1,4 +1,4 @@
-
+// author : Siddarth Dey
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX 100
