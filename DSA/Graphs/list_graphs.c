@@ -287,9 +287,3 @@ int main()
     BFT();
     DFT();
 }
-// Output:
-// Conclusion:
-// Hence the given graph has been successfully
-// implemented using linked list methodology
-// and Breadth First and Depth First traversals
-// have been carried out on the graph.
