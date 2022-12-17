@@ -1,36 +1,26 @@
-#include "bits/stdc++.h"
-using namespace std;
+#include <iostream>
+#include <fstream>
 
-int main()
-{
-    ifstream f1("file.txt");
-    string s; 
-    getline(f1,s);
-    
-    
+int main() {
+  std::ifstream input("input.txt");  // Open the input file for reading
+  std::ofstream output("output.txt");  // Open the output file for writing
 
-    f1.close();
-    for(int i = 0 ; i < s.size() ;i++)
-    {
-        if(s[i] == ' ')
-        {
-            if(s[i+1] == ' ' && i+1 != s.size())
-            {
-                int j = i + 1;
-                while(j<s.size())
-                {
-                    s[j] = s[j+1];
-                    j++;
-                }
-            }
-        }
+  // Read the input file one character at a time
+  char c;
+  while (input.get(c)) {
+    // If the character is a space, skip all consecutive spaces
+    if (c == ' ') {
+      while (input.peek() == ' ') {
+        input.get(c);
+      }
     }
-    s[s.size()] = '\0';
-    
+    // Write the character to the output file
+    output << c;
+  }
 
-    ofstream f("file.txt");
-    f<<s;
-    f.close();
+  // Close the input and output files
+  input.close();
+  output.close();
 
-
+  return 0;
 }
