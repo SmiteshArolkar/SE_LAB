@@ -1,40 +1,30 @@
 #include <iostream>
+#include <exception>
+
 using namespace std;
-void test(int x)
+
+void functionA()
 {
-    try
-    {
-        if (x == 1)
-            throw x;
-        else if (x == -1)
-            throw 1.0;
-        else if (x == 0)
-            throw 'x';
-        else
-            cout << "No Exception\n";
-    }
-    catch (char c)
-    {
-        cout << "Caught a Character\n";
-    }
-    catch (int c)
-    {
-        cout << "Caught a Interger\n";
-    }
-    catch (double c)
-    {
-        cout << "Caught a Double\n";
-    }
+  cout << "In function A" << endl;
+  throw exception(); // throw an exception
 }
+
+void functionB()
+{
+  cout << "In function B" << endl;
+  functionA(); // call function A
+}
+
 int main()
 {
-    cout << "Testing Multiple Catches\n";
-    cout << "x=1\n";
-    test(1);
-    cout << "x=0\n";
-    test(0);
-    cout << "x=-1\n";
-    test(-1);
-    cout << "x=2\n";
-    test(2);
+  try
+  {
+    cout << "In main function" << endl;
+    functionB(); // call function B
+  }
+  catch (exception& e)
+  {
+    cout << "Exception caught: " << e.what() << endl;
+  }
+  return 0;
 }

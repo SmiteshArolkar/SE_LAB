@@ -1,30 +1,28 @@
-#include "bits/stdc++.h"
+#include <iostream>
+#include <string>
+#include <algorithm>
 
 using namespace std;
 
+int main() {
+  // Read the string from the user
+  cout << "Enter a string: ";
+  string str;
+  
+  getline(cin, str);
 
-int main()
-{
-    string s;
-    cout<<"Enter a strings\n";
-    cin>>s;
-    int p = 0;
+  string s(str);
 
-    vector<char> v1;
-    for(int i = s.size()-1 ; i > 0 ; i--)
-    {
-        v1.push_back(s[i]);
-    }
-    for(auto i = 0 ; i < v1.size() ; i++)
-    {
-        if((v1[i] != s[i]))
-        p = 1;
-        
-    }
-    if(!p)
-    {
-        cout<<"Pali\n";
-    }
-    else cout<<"Not Pali\n";
 
+  // Reverse the string
+  reverse(str.begin(), str.end());
+
+  // Check if the string is a palindrome
+  if (str == s) {
+    cout << "The string is a palindrome." << endl;
+  } else {
+    cout << "The string is not a palindrome." << endl;
+  }
+
+  return 0;
 }
