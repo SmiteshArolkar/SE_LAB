@@ -138,6 +138,8 @@ int main()
             for (int i = 0; i < c; ++i)
             {
                 G[i][c - 1] = 0;
+
+                
                 G[c - 1][i] = 0;
             }
             printf("__ADJANCY MATRIX AFTER ADDITION__ \n");
