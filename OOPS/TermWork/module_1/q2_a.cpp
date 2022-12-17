@@ -35,8 +35,8 @@ void str::operator =(str n)
 }
 int main()
 {
-	str s1("suyash ");
-	str s2("shirodkar");
+	str s1("Smitesh ");
+	str s2("Arolkar");
 	str s3;
 	s3=s1+s2;
 	cout<<"FIRST STRING : ";
