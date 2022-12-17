@@ -117,23 +117,27 @@ int main()
     while (a != 7)
     {
 
-        printf("--->MENU\n1.--->LINEAR SEARCH.\n2--->BINARY SEARCH.\n3--->BUBBLE SORT.\n4--->INSERTION SORT.\n5--->SELECTION SORT.\n6--->MERFGE SORT.\n7--->EXIT.\n");
+        printf("MENU\n1.LINEAR SEARCH.\n2.BINARY SEARCH.\n3.BUBBLE SORT.\n4.INSERTION SORT.\n5.SELECTION SORT.\n6.MERFGE SORT.\n7.EXIT.\n");
         scanf("%d", &a);
         switch (a)
         {
         case 1:
+        {
             int c;
             printf("ENTER ELEMENT TO BE SEARCHED: ");
             scanf("%d", &c);
             for (i = 0; i < 10; i++)
                 if (c == A[i])
                     printf("ELEMENT FOUND AT POSITION %d!\n", i + 1);
+        }
             break;
         case 2:
+        {
             int d;
             printf("ENTER ELEMENT TO BE SEARCHED: ");
             scanf("%d", &d);
             printf("ELEMENT FOUND AT POSITION %d \n", BinarySearch(A, d) + 1);
+        }
             break;
         case 3:
             Bubble(A, n);
