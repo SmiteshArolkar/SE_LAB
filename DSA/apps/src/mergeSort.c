@@ -33,11 +33,8 @@ void MergeSort(int A[], int l, int h)
 
 int main()
 {
-    int a[] = {1,2,3,4,6,5,4,3};
+    int a[] = {1,5,6,7,3,4,9,0};
     int size = sizeof(a)/sizeof(a[0]);
     MergeSort(a,0,size-1);
-    for(int i = 0 ; i  < size ;i++)
-    {
-        printf("%d\t",a[i]);
-    }
+    for(int i = 0 ; i < size ; i ++) printf("%d\t",a[i]);
 }
