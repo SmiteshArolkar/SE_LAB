@@ -123,7 +123,7 @@ void BFS(struct vertex *p)
     status[p->info] = 1;
     while (!isempty())
     {
-        p = delete ();
+        p = delete();
         printf("%d", p->info + 1);
         status[p->info] = 2;
         q = p->fe;

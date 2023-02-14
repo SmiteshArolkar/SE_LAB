@@ -142,7 +142,6 @@ int base_convert(int n, int base)
         return 0;
     }
     if (n == 1)
-
     {
         printf("1");
         return 0;
