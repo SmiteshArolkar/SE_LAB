@@ -76,7 +76,7 @@ void spiralOrder(node* root)
     {
         while(top1 > 0)
         {
-            node* Current = pop(stack1);
+            node* Current = stack1[to];
             top1--;
 
             printf("%d",Current->val);

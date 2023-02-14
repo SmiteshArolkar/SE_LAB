@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX 100
-    struct vertex;
+struct vertex;
 struct edge
 {
     struct vertex *v;
@@ -18,8 +18,7 @@ struct vertex *start = NULL;
 struct vertex *addv(int item)
 {
     struct vertex *temp, *p;
-    temp = (struct vertex *)malloc(sizeof(struct
-                                          vertex));
+    temp = (struct vertex *)malloc(sizeof(struct vertex));
     temp->info = item;
     temp->fe = NULL;
     temp->nv = NULL;
@@ -55,8 +54,8 @@ struct vertex *loc(int u)
 void adde(int u, int v)
 {
     struct vertex *p, *q;
-    p = loc(u);
-    q = loc(v);
+    p = loc(u);//source
+    q = loc(v);//destination
     if (p != NULL && q != NULL)
     {
         struct edge *temp, *t;
@@ -121,7 +120,7 @@ void BFS(struct vertex *p)
     struct edge *q;
     insert(p);
     status[p->info] = 1;
-    while (!isempty())
+    while(!isempty())
     {
         p = delete();
         printf("%d", p->info + 1);
@@ -143,7 +142,7 @@ void BFT()
     int i;
     for (i = 0; i < n; i++)
     {
-        status[i] = 0;
+        status[i] = 0;//initial status
     }
     printf("\nEnter starting vertex:");
     int v;

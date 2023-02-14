@@ -78,7 +78,7 @@ void radixSort()
         }
         start = front[i];
 
-        while (i < 9) // number of digits 0-9 [table connection]
+        while (i <= 9) // number of digits 0-9 [table connection]
         {
             if (front[i + 1] != NULL)         // check if empty slot
                 rear[i]->next = front[i + 1]; // if not make connection
