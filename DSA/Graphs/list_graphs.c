@@ -254,7 +254,7 @@ void DFT()
     {
         if (status[i] == 0)
         {
-            DFS(i);
+            DFS(loc(i));
         }
     }
 }

@@ -76,13 +76,13 @@ void spiralOrder(node* root)
     {
         while(top1 > 0)
         {
-            node* Current = stack1[to];
+            node* Current = stack1[top1];
             top1--;
 
             printf("%d",Current->val);
 
             if(Current->lchild) stack2[++top2] = Current->lchild;
-            if(Current->rchild) stack2[++top] = Current->rchild;
+            if(Current->rchild) stack2[++top2] = Current->rchild;
         }
 
         while (top2 > 0)
@@ -91,6 +91,8 @@ void spiralOrder(node* root)
             top2--;
 
             printf("%d",current->val);
+            if(Current->lchild) stack1[++top1] = Current->lchild;
+            if(Current->rchild) stack1[++top1] = Current->rchild;
         }
         
     }
