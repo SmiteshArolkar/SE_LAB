@@ -41,6 +41,7 @@ int main()
 int kruskals(int n, int e)
 {
     int k = 1;
+    //finding edges
     for (int i = 1; i <= n; i++)
     {
         for (int j = i + 1; j <= n; j++)
@@ -54,6 +55,7 @@ int kruskals(int n, int e)
             }
         }
     }
+    //sort the edges
     for (int i = 1; i < k; i++)
     {
         for (int j = 1; j < k - 1; j++)
@@ -70,13 +72,14 @@ int kruskals(int n, int e)
             }
         }
     }
+    //initialize parent 
     for (int i = 1; i <= n; i++)
         parent[i] = -1;
     int i = 0, mincost = 0, x = 1;
-    while (i < n - 1 && x < k)
+    while (i < n - 1 && x < k)//for number of edges
     {
-        int j = find(sr[x]), k = find(dst[x]);
-        if (j != k)
+        int j = find(sr[x]), k = find(dst[x]);//find branched parents
+        if (j != k)//if equal discard case
         {
             i = i + 1;
             t[i][1] = sr[x];
