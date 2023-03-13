@@ -1,0 +1,57 @@
+#define INT_MAX MAX
+Prims(int n)
+{
+    //find min k,l
+    int min = MAX , k , l;
+    for(int i = 1 ; i <= n ; i++)
+    {
+        for(int j = i ; j <=  n ; j++) //check upper triangle
+        {
+            if(min > cost[i][j])
+            {
+                min = cost[i][j];
+                k = i;
+                l = j;
+            }
+        }
+    }
+    near[k] = near[l] = 0; // near[1:n]
+    t[0][0] = k;           // t[0:1][0:n-1]
+    t[1][1] = l;
+    //intialize near[n]
+    for(int i = 1 ; i <= n ; i++)
+    {
+        if(near[i] != 0)
+        if(cost[i][k] < cost[i][l])
+        {
+            near[i] = k;
+        }
+        else
+        {
+            near[i] = l;
+        }
+    }
+
+    //end of step 1
+
+    for(int i = 1 ; i < n - 1 ; i++)
+    {
+        min  =  MAX;
+        for(int j = 1; j <= n ; j++)
+        {
+            if(near[j] != 0 && cost[j][near[j]] < min)
+            {
+                min = cost[j][near[j]];
+                k = j;
+            }
+        }
+        t[0][i] = k;
+        t[1][i] = near[k];
+        near[k] = 0;
+        for(j = 1 ; j <= n ; j++)//update near
+        {
+            if(near[j] != 0 && cost[j][k] < cost[j][near[j]])
+            near[j] = k;
+        }
+    }
+}
