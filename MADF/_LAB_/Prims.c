@@ -84,11 +84,9 @@ int Prims(int n_vertex)
               int mcost = 0;
               mcost = mcost + cost[t[0][m]][t[1][m]];
         }*/
+
         printf("Near : ");
-        printArray(near,n_vertex); 
-       
-        
-        
+        printArray(near,n_vertex);
         printf("\n");
     }
 
