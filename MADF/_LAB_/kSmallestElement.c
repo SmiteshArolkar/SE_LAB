@@ -53,5 +53,4 @@ int main()
     scanf("%d",&k);
     k == 0 ? k = 0 : k--;
     kSmallest(a,low,high,k);
-
 }
